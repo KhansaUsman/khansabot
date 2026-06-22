@@ -1,0 +1,24 @@
+CURRENT SEMESTER COURSES (Final Semester, BSc Software Engineering)
+University: University of Management and Technology (UMT)
+
+Expected Graduation: July 2026
+1. Natural Language Processing
+Description: Covers the foundations of processing and understanding human language computationally — including text preprocessing, n-gram language models and smoothing techniques, part-of-speech tagging, word embeddings, and an introduction to how deep learning architectures (RNNs, LSTMs, GRUs) are applied to language tasks. Emphasis on both the theoretical underpinnings and practical implementation of NLP pipelines.
+2. Machine Learning
+Description: Covers supervised and unsupervised learning techniques, including classification algorithms (Logistic Regression, K-Nearest Neighbors, Naive Bayes, Decision Trees), dimensionality reduction (PCA), and model evaluation methods such as K-Fold cross-validation. Coursework involves applying these techniques to real-world datasets and comparing model performance.
+
+Major Coursework: Applied PCA, K-Fold cross-validation, and four classification models (Naive Bayes, Logistic Regression, KNN, Decision Tree) to the Breast Cancer Wisconsin dataset.
+3. Professional Practices
+Description: Covers professional and ethical standards in the software engineering industry, including workplace communication, team dynamics, industry case studies, and soft skills relevant to a software career.
+
+Major Coursework: Group presentation on "Workplace Pressure in the IT & Software Industry."
+4. Economics
+Description: Covers core microeconomic principles — supply and demand, market structures, cost analysis, and pricing — along with their application to business and technology decision-making contexts.
+5. Final Year Project (FYP)
+Description: AI-Enhanced IoT Security System — see fyp_details.txt for full details.
+
+My Role: Flask Backend Developer
+Additional Notes
+
+CGPA: 3.72/4.0
+

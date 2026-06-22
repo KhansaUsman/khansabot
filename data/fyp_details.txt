@@ -1,0 +1,34 @@
+FINAL YEAR PROJECT (FYP) DETAILS
+Project Title: AI-Enhanced IoT Security System
+Student: Khansa
+
+Role: Flask Backend Developer
+Project Overview
+The system monitors network traffic from connected IoT devices (sensors and other smart hardware) and uses an AI-based anomaly/intrusion detection model to identify suspicious or malicious activity in real time. What makes it "AI-enhanced" is that instead of relying on fixed rule-based security checks, the system learns normal device behavior patterns and flags deviations that could indicate an intrusion, malware, or attack — giving earlier and more adaptive threat detection than traditional IoT security setups.
+My Role and Responsibilities
+I am responsible for building the Flask backend for the system. This includes:
+
+Designing the backend project structure
+Building the database layer (database.py)
+Developing API endpoints to receive and serve IoT device/sensor data
+Building API endpoints to connect the AI/ML anomaly detection model's predictions to the rest of the system
+Implementing authentication so only authorized devices/users can access the system
+Integrating the backend with the frontend dashboard and the IoT hardware data feed
+
+Tech Stack
+
+Backend: Flask (Python)
+Database: SQLite
+AI/ML: Anomaly/intrusion detection model (Python-based)
+IoT Hardware: Real sensors/devices for live data collection
+Frontend: Dashboard (built by teammate)
+
+Team
+A team of 4, with the following responsibilities:
+
+Khansa — Flask backend development (project structure, database, APIs, authentication, integration)
+Teammate 2 — AI/ML anomaly/intrusion detection model
+Teammate 3 — Frontend/dashboard development
+Teammate 4 — IoT/hardware setup (sensors and device-level data collection)
+Project Significance
+IoT devices are widely deployed but often lack strong built-in security, making them common targets for attacks. This project matters because it applies AI-based threat detection to catch unusual or malicious behavior on IoT networks that traditional, rule-based security systems might miss — helping make connected devices safer and more resilient.
