@@ -9,11 +9,19 @@ import os
 from pathlib import Path
 from dotenv import load_dotenv
 
-# Load environment variables from .env (GROQ_API_KEY)
+# Load environment variables — works locally via .env
 load_dotenv()
 
+# On Streamlit Cloud, secrets come from st.secrets instead of .env
+try:
+    import streamlit as st
+    if "GROQ_API_KEY" in st.secrets:
+        os.environ["GROQ_API_KEY"] = st.secrets["GROQ_API_KEY"]
+except Exception:
+    pass  # Not running in Streamlit context, use .env instead
+
 GROQ_API_KEY = os.environ.get("GROQ_API_KEY")
-assert GROQ_API_KEY, "GROQ_API_KEY not found. Add it to your .env file."
+assert GROQ_API_KEY, "GROQ_API_KEY not found. Add it to your .env file or Streamlit secrets."
 
 DATA_DIR = Path("data")
 VECTORSTORE_DIR = Path("vectorstore")
@@ -23,7 +31,7 @@ from langchain_groq import ChatGroq
 
 llm = ChatGroq(
     model="llama-3.3-70b-versatile",
-    temperature=0,  # deterministic, no creative guessing — keeps answers grounded
+    temperature=0,
 )
 
 # ---- Step 1: Load documents from data/ ----
@@ -43,8 +51,8 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 def split_documents(documents):
     splitter = RecursiveCharacterTextSplitter(
-        chunk_size=700,      # increased from 500 — keeps short facts (like CGPA) with more surrounding context
-        chunk_overlap=150,   # increased proportionally with chunk_size
+        chunk_size=700,
+        chunk_overlap=150,
     )
     return splitter.split_documents(documents)
 
@@ -74,8 +82,9 @@ def build_vectorstore(chunks, embeddings):
     return vectorstore
 
 # ---- Step 4: Retriever ----
-def get_retriever(vectorstore, k=6):  # increased from 4 — casts a wider net so the right chunk is more likely included
+def get_retriever(vectorstore, k=6):
     return vectorstore.as_retriever(search_kwargs={"k": k})
+
 # ---- Step 5: Grounded prompt — KhansaBot's identity + anti-hallucination guard ----
 from langchain_core.prompts import ChatPromptTemplate
 
@@ -91,6 +100,7 @@ answer_prompt = ChatPromptTemplate.from_messages([
      "Context:\n{context}"),
     ("human", "{input}"),
 ])
+
 # ---- Step 6: Build the RAG chain (with conversation history support) ----
 try:
     from langchain.chains import create_retrieval_chain
@@ -104,7 +114,6 @@ def build_rag_chain(retriever):
     rag_chain = create_retrieval_chain(retriever, qa_chain)
     return rag_chain
 
-
 def format_history(history):
     """Turn a list of (question, answer) tuples into a text block for context."""
     if not history:
@@ -115,7 +124,6 @@ def format_history(history):
         lines.append(f"KhansaBot: {a}")
     return "\n".join(lines)
 
-
 def ask_khansabot(rag_chain, question, history=None):
     """
     Ask a question, optionally including prior conversation history.
@@ -125,7 +133,6 @@ def ask_khansabot(rag_chain, question, history=None):
     history = history or []
     history_text = format_history(history)
 
-    # Prepend history to the question so the LLM has conversational context
     if history_text:
         full_input = f"Previous conversation:\n{history_text}\n\nNew question: {question}"
     else:
@@ -165,6 +172,6 @@ if __name__ == "__main__":
     print(f"\nQ2: {q2}\nA2: {a2}")
     history.append((q2, a2))
 
-    q3 = "What is her favorite food?"  # not in any document — should trigger refusal
+    q3 = "What is her favorite food?"
     a3 = ask_khansabot(rag_chain, q3, history)
     print(f"\nQ3: {q3}\nA3: {a3}")
