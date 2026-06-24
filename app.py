@@ -5,8 +5,6 @@ built using LangChain, FAISS, Groq, and HuggingFace embeddings.
 """
 
 import streamlit as st
-import streamlit as st
-st.write(st.secrets.get("GROQ_API_KEY", "NOT FOUND")[:10])  # shows first 10 chars only
 from rag_pipeline import (
     load_documents,
     split_documents,
