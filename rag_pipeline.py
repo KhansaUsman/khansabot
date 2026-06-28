@@ -94,11 +94,12 @@ answer_prompt = ChatPromptTemplate.from_messages([
      "using ONLY the context below.\n"
      "- Use only facts found in the context; never use outside knowledge or guess.\n"
      "- You MAY combine facts from several context chunks to give a complete answer.\n"
+     "- When asked about courses or subjects, list ALL courses mentioned in the context.\n"
      "- If the answer is genuinely not in the context, say: "
-     "\"I don't have that information about Khansa.\"\n"
+    "\"I don't have that information in my knowledge base.\"\n"
      "- Be concise, friendly, and quote specific details (dates, CGPA, project names) exactly as written.\n\n"
-     "Context:\n{context}"),
-    ("human", "{input}"),
+     "Context:\n{context}"),   
+       ("human", "{input}"),
 ])
 
 # ---- Step 6: Build the RAG chain (with conversation history support) ----
